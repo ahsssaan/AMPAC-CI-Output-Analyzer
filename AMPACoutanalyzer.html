@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMPAC/PM6 CI Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="ph ph-atom"></i>
+                <h1>AMPAC/PM6 Analyzer</h1>
+            </div>
+            <p class="subtitle">Extract singlet states, oscillator strengths, and analysis summaries from your CI outputs instantly.</p>
+        </header>
+
+        <section class="upload-section">
+            <div id="drop-zone" class="drop-zone">
+                <input type="file" id="file-input" multiple accept=".out,.txt">
+                <div class="drop-content">
+                    <i class="ph ph-upload-simple"></i>
+                    <h3>Drag & Drop your .out files here</h3>
+                    <p>or click to browse</p>
+                </div>
+            </div>
+            <div id="upload-status" class="upload-status hidden">
+                <i class="ph ph-spinner-gap spinner"></i> Analyzing...
+            </div>
+        </section>
+
+        <main id="results-container" class="hidden">
+            <section class="multi-file-summary card glass">
+                <div class="card-header">
+                    <h2><i class="ph ph-table"></i> Comparison Table</h2>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-icon" id="export-csv-btn" title="Export as CSV"><i class="ph ph-download-simple"></i> Export CSV</button>
+                        <button class="btn-icon" id="copy-table-btn" title="Copy Table as TSV"><i class="ph ph-copy"></i> Copy</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>n</th>
+                                <th>S1 eV</th><th>S1 nm</th><th>S1 f</th>
+                                <th>S2 eV</th><th>S2 nm</th><th>S2 f</th>
+                                <th>S3 eV</th><th>S3 nm</th><th>S3 f</th>
+                                <th>S4 eV</th><th>S4 nm</th><th>S4 f</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="trend-note" class="trend-note hidden"></div>
+            </section>
+
+            <section class="plots-section card glass hidden" id="plots-section">
+                <div class="card-header">
+                    <h2><i class="ph ph-chart-line-up"></i> Convergence Analysis</h2>
+                </div>
+                <div class="plots-grid">
+                    <div id="plot-s1-s2" class="plot-container"></div>
+                    <div id="plot-bright" class="plot-container"></div>
+                </div>
+            </section>
+
+            <section id="individual-results" class="individual-results">
+                <!-- Populated by JS -->
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
